@@ -34,9 +34,6 @@ function onFormSubmit(e) {
     gallery.innerHTML = '';
     return;
   }
-  // if (nameSearch.length < 500 && totalHits > 0) {
-  //   Notify.success(`Hooray! We found ${totalHits} images.`);
-  // }
 
   onGetImages()
     .then(images => {

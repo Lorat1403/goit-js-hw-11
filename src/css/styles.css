@@ -28,10 +28,7 @@ body {
     display: flex;
     align-items: center;
     border: none;
-  /* font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px; */
+
 }
 
 .search-form > button {
@@ -60,8 +57,6 @@ body {
  .gallery {
   display: flex;
     flex-wrap: wrap;
-    /* margin-top: auto;
-    margin-left: auto; */
   padding-top: 50px;
   padding-bottom: 50px;
   
@@ -75,7 +70,7 @@ flex-basis: calc(100% / 3 - 30px);
 
  
  img {
-   /* display: inline-flex; */
+ 
    display: block;
    width: 100%;
    height: auto;
@@ -88,7 +83,7 @@ flex-basis: calc(100% / 3 - 30px);
    justify-content: center;
  }
  .info-item {
-   /* display: flex;   */
+  
    padding: 10px;
    align-items: center;  
  }
