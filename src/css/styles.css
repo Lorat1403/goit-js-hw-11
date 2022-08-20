@@ -11,48 +11,109 @@ body {
   color: #212121;
   line-height: 1.5;
 }
+.container {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(0, 119, 255, 0.39);
+}
 
 
 .search-form {
-  font: inherit;
+  position: relative;
+    display: flex;
+    align-items: center;
+    border: none;
+  /* font: inherit;
   padding: 8px;
   max-width: 320px;
-  margin-bottom: 16px;
+  margin-bottom: 16px; */
+}
+
+.search-form > button {
+  border: none;
+  border-radius: 5px;
+  color: #fafafa;
+  background-color: blue;
+  margin-left: 20px;
+  width: 150px;
+  height: 30px;
+}
+
+.search-form > input {
+  border: none;
+  border-radius: 5px;
+  background-color: blue;
+  height: 30px;
+
+}
+.search-form >input::placeholder {
+  color: #fafafa;
 }
 .is-hidden {
   display: none;
 }
  .gallery {
-   padding-top: 50px;
-   padding-bottom: 50px;
+  display: flex;
+    flex-wrap: wrap;
+    /* margin-top: auto;
+    margin-left: auto; */
+  padding-top: 50px;
+  padding-bottom: 50px;
+  
+    
+ }
+ .photo-card {
+flex-basis: calc(100% / 3 - 30px);
+  margin-top: 30px;
+  margin-left: 30px;
  }
 
- .search__form {
-   position: relative;
-   display: flex;
-   align-items: center;
- }
+ 
  img {
-   display: inline-flex;
+   /* display: inline-flex; */
+   display: block;
    width: 100%;
    height: auto;
    object-fit: cover;
-  
+ }
+
+ .info {
+   height: 100px;
+   display: flex;
+   justify-content: center;
  }
  .info-item {
-   display: flex;
-   
+   /* display: flex;   */
    padding: 10px;
-   /* flex-direction: ; */
-   align-items: center;
-  
-   
+   align-items: center;  
  }
  .number-of{
   color: rgb(19, 2, 20);
-  
   margin-left: 10px;
  }
+
 .image-link{
   text-decoration: none;
+  color: black;
+}
+.load-more {
+    display: block;
+    border: none;
+    height: 40px;
+    width: 150px;
+  
+    margin-left: auto;
+    margin-right: auto;
+  
+    border-radius: 10px;
+    background-color: rgb(230, 226, 23);
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -10,30 +10,34 @@ const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 const BASE_URL = 'https://pixabay.com/api/';
 const MY_KEY = '29245292-844c4c201188366cd8cc26438';
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionDelay: 250,
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-});
 
 let nameSearch = input.value;
-let currentPage = 0;
+let currentPage = 1;
 let perPage = 40;
 const totalPages = 500 / perPage;
 
+loadMoreBtn.classList.add('is-hidden');
 form.addEventListener('submit', onFormSubmit);
 loadMoreBtn.addEventListener('click', onLoadMore);
-loadMoreBtn.classList.add('is-hidden');
 
 function onFormSubmit(e) {
   e.preventDefault();
   gallery.innerHTML = '';
   nameSearch = input.value.trim();
 
+  if (nameSearch === '') {
+    loadMoreBtn.classList.add('is-hidden');
+    Notify.warning(
+      'If you want to search, than try to write something in the field.'
+    );
+    gallery.innerHTML = '';
+    return;
+  }
+
   onGetImages()
     .then(images => {
       currentPage += 1;
-      // loadMoreBtn.classList.remove('is-hidden');
+      loadMoreBtn.classList.remove('is-hidden');
     })
     .catch(error => {
       Notify.warning(
@@ -54,9 +58,10 @@ async function onGetImages() {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else if (gottenImages.length < 500 && totalHits > 0) {
-      loadMoreBtn.classList.remove('is-hidden');
       Notify.success(`Hooray! We found ${totalHits} images.`);
+      loadMoreBtn.classList.remove('is-hidden');
     }
+
     galleryMarkup(gottenImages);
   } catch (error) {
     console.log(error);
@@ -64,8 +69,6 @@ async function onGetImages() {
 }
 
 function galleryMarkup(data) {
-  // const image = data.hits;
-
   const markup = data
     .map(
       ({
@@ -102,18 +105,16 @@ function galleryMarkup(data) {
   lightbox.refresh();
 }
 
-// function onModalOpenClick(el) {
-//   const imgTarget = el.target.classList.contains('gallery__image');
-//   if (!imgTarget) {
-//     return;
-//   }
-
-//   el.preventDefault();
-// }
-
-function onLoadMore() {
+function onLoadMore(e) {
+  nameSearch = input.value;
   if (currentPage > totalPages) {
     loadMoreBtn.classList.add('is-hidden');
-    onGetImages();
   }
+  onGetImages(e);
 }
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+});
