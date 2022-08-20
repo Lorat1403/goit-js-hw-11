@@ -54,7 +54,7 @@ body {
 .search-form >input::placeholder {
   color: #fafafa;
 }
-.is-hidden {
+.load-more.is-hidden {
   display: none;
 }
  .gallery {
