@@ -27,7 +27,7 @@ function onFormSubmit(e) {
   nameSearch = input.value.trim();
 
   if (nameSearch === '') {
-    loadMoreBtn.classList.add('is-hidden');
+    // loadMoreBtn.classList.add('is-hidden');
     Notify.warning(
       'If you want to search, than try to write something in the field.'
     );
@@ -55,15 +55,14 @@ async function onGetImages() {
     const gottenImages = responce.data.hits;
     const totalHits = responce.totalHits;
     if (gottenImages.length === 0) {
-      loadMoreBtn.classList.add('is-hidden');
-      return Notify.warning(
+      // loadMoreBtn.classList.add('is-hidden');
+      Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else if (gottenImages.length < 500 && totalHits > 0) {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       loadMoreBtn.classList.remove('is-hidden');
     }
-
     galleryMarkup(gottenImages);
   } catch (error) {
     console.log(error);
