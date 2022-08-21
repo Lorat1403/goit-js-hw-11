@@ -27,10 +27,16 @@ function onFormSubmit(e) {
   nameSearch = input.value.trim();
 
   if (nameSearch === '') {
-    // loadMoreBtn.classList.add('is-hidden');
+    loadMoreBtn.classList.add('is-hidden');
     Notify.warning(
       'If you want to search, than try to write something in the field.'
     );
+    if (nameSearch.hits === 0) {
+      loadMoreBtn.classList.add('is-hidden');
+      Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
     gallery.innerHTML = '';
     return;
   }
@@ -38,13 +44,13 @@ function onFormSubmit(e) {
   onGetImages()
     .then(images => {
       currentPage += 1;
-      loadMoreBtn.classList.remove('is-hidden');
     })
     .catch(error => {
-      Notify.warning(
-        "We're sorry, but you've reached the end of search results."
-      );
-      loadMoreBtn.classList.add('is-hidden');
+      console.log(error);
+      // Notify.warning(
+      //   "We're sorry, but you've reached the end of search results."
+      // );
+      // loadMoreBtn.classList.add('is-hidden');
     });
 }
 async function onGetImages() {
@@ -53,19 +59,25 @@ async function onGetImages() {
       `${BASE_URL}?key=${MY_KEY}&q=${nameSearch}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${currentPage}`
     );
     const gottenImages = responce.data.hits;
-    const totalHits = responce.totalHits;
+    const totalHits = responce.data.totalHits;
+    console.log(totalHits);
+
     if (gottenImages.length === 0) {
-      // loadMoreBtn.classList.add('is-hidden');
       Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-    } else if (gottenImages.length < 500 && totalHits > 0) {
+    }
+    if (gottenImages.length < 500 && totalHits > 0) {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       loadMoreBtn.classList.remove('is-hidden');
     }
     galleryMarkup(gottenImages);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    loadMoreBtn.classList.add('is-hidden');
+    Notify.warning(
+      "We're sorry, but you've reached the end of search results."
+    );
   }
 }
 
@@ -103,6 +115,7 @@ function galleryMarkup(data) {
     )
     .join('');
   gallery.insertAdjacentHTML('beforeend', markup);
+
   lightbox.refresh();
 }
 
