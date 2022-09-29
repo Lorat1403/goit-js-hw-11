@@ -18,7 +18,6 @@ const totalPages = 500 / perPage;
 
 form.addEventListener('submit', onFormSubmit);
 loadMoreBtn.addEventListener('click', onLoadMore);
-
 loadMoreBtn.classList.add('is-hidden');
 
 function onFormSubmit(e) {
